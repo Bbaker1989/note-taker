@@ -1,14 +1,23 @@
 //require express server
 const express = require('express');
 
-//require API and HTML routes
-const apiRoutes = require('./routes/apiRoutes');
-const htmlRoutes = require('./routes/htmlRoutes');
-
-//Start app and create port
-
+//Star5t app and create port
 const app = express ();
 const PORT = process.env.PORT || 3001;
+
+//require API and HTML routes
+
+const htmlRoutes = require('./routes/htmlRoutes');
+
+//app.use to parse incoming data
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('public'));
+
+//app.use router to set up different API routes
+
+app.use('/', htmlRoutes);
+
 
 //Server on the port
 app.listen(PORT, () => {
